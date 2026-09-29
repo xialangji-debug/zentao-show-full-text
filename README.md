@@ -4,7 +4,8 @@ A Tampermonkey userscript for ZenTao pages. It improves long project/product nam
 
 ## Features
 
-- Show complete project/product names in the ZenTao switcher popup and show the selected name on hover.
+- Size the ZenTao switcher popup from its longest loaded project/product name, with a viewport width limit and wrapping for longer names.
+- Show the selected project/product name directly in the header without ellipsis, and retain its hover title.
 - Add a page-local "所属产品" filter when a Bug table contains a product column. It filters the currently rendered rows only; ZenTao's pagination and total count are unchanged.
 - Support persistent Bug table column width and order settings for columns present in the current table. No layout override is applied until settings are saved.
 - Save user settings in browser `localStorage`.

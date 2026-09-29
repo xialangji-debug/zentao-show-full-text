@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZenTao Show Full Text
 // @namespace    local.codex.zentao
-// @version      1.1.0
+// @version      1.1.1
 // @description  Show long project/product names and provide page-local Bug product filtering and column layout.
 // @author       xiakezhen, Codex
 // @license      MIT
@@ -38,10 +38,14 @@
   };
 
   const CSS = `
-    .tm-zentao-trigger { max-width: min(560px, calc(100vw - 48px)) !important; min-width: 0 !important; }
-    .tm-zentao-trigger .text { display: block !important; overflow: hidden !important;
-      text-overflow: ellipsis !important; white-space: nowrap !important; }
-    .tm-zentao-popup { box-sizing: border-box !important; width: min(280px, calc(100vw - 24px)) !important;
+    .tm-zentao-switcher { flex: 0 1 auto !important; width: max-content !important; min-width: 0 !important;
+      max-width: 100% !important; overflow: visible !important; }
+    .tm-zentao-trigger { width: max-content !important; max-width: 100% !important; min-width: 0 !important;
+      height: auto !important; white-space: normal !important; }
+    .tm-zentao-trigger .text { display: block !important; width: auto !important; max-width: none !important;
+      min-width: 0 !important; overflow: visible !important; flex: 1 1 auto !important;
+      text-overflow: clip !important; white-space: normal !important; overflow-wrap: anywhere !important; }
+    .tm-zentao-popup { box-sizing: border-box !important; width: max-content !important;
       max-width: calc(100vw - 24px) !important; }
     .tm-zentao-popup .dropmenu-list { max-width: 100% !important; overflow-x: hidden !important; }
     .tm-zentao-popup .tree-item { height: auto !important; min-height: 34px !important;
@@ -52,6 +56,7 @@
     .tm-zentao-popup .item-title, .tm-zentao-popup .item-content,
     .tm-zentao-popup .label, .tm-zentao-popup .text {
       min-width: 0 !important; max-width: 100% !important; height: auto !important;
+      flex-shrink: 1 !important; -webkit-line-clamp: unset !important;
       overflow: visible !important; text-overflow: clip !important;
       white-space: normal !important; overflow-wrap: anywhere !important; }
     #${FILTER_ID} { display: inline-flex; align-items: center; margin-left: 8px; }
@@ -96,6 +101,7 @@
     for (const root of doc.querySelectorAll("#dropmenu, #switcher, [z-use-dropmenu], [data-fetcher*='product-ajaxGetDropMenu'], [data-fetcher*='project-ajaxGetDropMenu'], [data-fetcher*='execution-ajaxGetDropMenu']")) {
       const trigger = root.querySelector(".dropmenu-btn, .pick, button");
       if (!trigger) continue;
+      root.classList.add("tm-zentao-switcher");
       trigger.classList.add("tm-zentao-trigger");
       const label = trigger.querySelector(".text") || trigger;
       const name = textOf(label);

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 - 2026-09-29
+
+- Size the product/project switcher popup intrinsically from its longest loaded name instead of a fixed pixel width.
+- Display the selected product/project name in the header without ellipsis.
+- Let long names wrap when the viewport limits available width.
+- Verified on the live ZenTao 21.7.1 menu: all 73 product names fit; changing a label expands the popup and restoring it shrinks the popup again.
+
 ## 1.1.0 - 2026-09-28
 
 - Limit layout changes to identified Bug tables; leave requirement and story tables untouched.
